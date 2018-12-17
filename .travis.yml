@@ -10,7 +10,7 @@ addons:
     - python-serial
     - p7zip-full
 before_install:
-- PROJECT_PATH=$(pwd)
+- PROJECT_PATH=$(pwd)/project-mars
 install:
 - mkdir -p ~/esp
 - cd ~/esp
