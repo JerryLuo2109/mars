@@ -1,0 +1,41 @@
+sudo: false
+language: bash
+os:
+- linux
+addons:
+  apt:
+    packages:
+    - gperf
+    - python
+    - python-serial
+    - p7zip-full
+before_install:
+- PROJECT_PATH=$(pwd)
+install:
+- mkdir -p ~/esp
+- cd ~/esp
+- wget https://dl.espressif.com/dl/xtensa-esp32-elf-linux64-1.22.0-80-g6c4433a-5.2.0.tar.gz
+- tar -xzf xtensa-esp32-elf-linux64-1.22.0-80-g6c4433a-5.2.0.tar.gz
+- export PATH=$PATH:$HOME/esp/xtensa-esp32-elf/bin
+- git clone --recursive --branch release/v3.2 https://github.com/espressif/esp-idf.git
+- python -m pip install --user -r ~/esp/esp-idf/requirements.txt
+- export IDF_PATH=~/esp/esp-idf
+script:
+- cd $PROJECT_PATH
+- make defconfig
+- make -j4
+before_deploy:
+- 7z a -t7z Mars-$TRAVIS_TAG.7z ./build/project-mars.bin ./build/partitions_singleapp.bin ./build/bootloader/bootloader.bin
+- 7z a -t7z Mars-$TRAVIS_TAG-elf.7z ./build/project-mars.elf
+deploy:
+  provider: releases
+  api_key:
+    secure: kJBy0sLPA/NA8vIh+W4xd1Qs8P/e8z25B+6avG5eiWaC58VJouYmAytZ97CScxjMzvH0AbEXWcI3vswnKPgeCjCdjKfz0j94WFU1kYPgQ8xWzvAeS3vzxbqYViCkRdpaUTvEDArUdcaRuJrFjsd1PgRaRgKjjEnDEpuAm1Lzdw6z/yPx9GE4NeCNkxfetcnle90pSK9flS2OVb1GYG5LK3bYWxzGwryL6XUiyKQlfXtG102ZKBjGuG/W1X6GCyC3NjVZHtCNop4iNC0rTxWlnJW4LUY3DGf8EatoqrYeQsJV37IIdFOjEB1ZIzajLEy+9Jp+05rWKBl5FB2CpMGOSL9c93W2n4INxvDCRvmAiMhNe3ntf1wWQasTp6sF60lv+nyCU4jyxugsyUQyoBP8sRz0ODNKAsY6ID2a5Fbmgws2eDAUVGPZ6tBezPHO32F2vgmrftdnpWDpRsyL0TT6ViguoRgwgYKYsNapP6hCsaGiLmxWLtkE87Rv2G8Z66KzXLzjKF8RGKtyeO0yaEOX+/3TzfL9jujrtwxgDFSntZU4DRyWtj5bKoXCvbXaVlj36ko6yVB67ddYvqc7/jQZ1knFGhYcv2UuHUMlBop8WhefoIE7J8DOE2qO3CdrYf1QlbSxn9WfcAS4OzgyPTAyqmI3Tzb2qQKhbxk3v3pBqrU=
+  file_glob: true
+  file: build/*.7z
+  target_commitish: $TRAVIS_COMMIT # <--------both used
+  tag_name: $TRAVIS_TAG # <--------both used
+  name: Mars insecurity firmware release $TRAVIS_TAG
+  body: ChangeLog XXX
+  on:
+    repo: JerryLuo2109/mars
