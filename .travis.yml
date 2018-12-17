@@ -38,4 +38,4 @@ deploy:
   name: Mars insecurity firmware release $TRAVIS_TAG
   body: ChangeLog XXX
   on:
-    repo: JerryLuo2109/mars
+    tags: true
