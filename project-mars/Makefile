@@ -5,5 +5,7 @@
 
 PROJECT_NAME := project-mars
 
+EXCLUDE_COMPONENTS = coap expat
+
 include $(IDF_PATH)/make/project.mk
 
