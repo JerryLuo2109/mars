@@ -25,8 +25,8 @@ script:
 - make defconfig
 - make -j4
 before_deploy:
-- 7z a -t7z ./build/Mars-firmware-$TRAVIS_TAG.7z ./build/project-mars.bin ./build/partitions_singleapp.bin ./build/bootloader/bootloader.bin
-- 7z a -t7z ./build/Mars-firmware-$TRAVIS_TAG-elf.7z ./build/project-mars.elf
+- 7z a -t7z ./build/Mars-firmware-bin-$TRAVIS_TAG.7z ./build/project-mars.bin ./build/partitions_singleapp.bin ./build/bootloader/bootloader.bin
+- 7z a -t7z ./build/Mars-firmware-elf-$TRAVIS_TAG.7z ./build/project-mars.elf
 deploy:
   provider: releases
   api_key:
