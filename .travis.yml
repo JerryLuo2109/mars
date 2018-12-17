@@ -17,9 +17,9 @@ install:
 - wget https://dl.espressif.com/dl/xtensa-esp32-elf-linux64-1.22.0-80-g6c4433a-5.2.0.tar.gz
 - tar -xzf xtensa-esp32-elf-linux64-1.22.0-80-g6c4433a-5.2.0.tar.gz
 - export PATH=$PATH:$HOME/esp/xtensa-esp32-elf/bin
-- git clone --recursive --branch release/v3.2 https://github.com/espressif/esp-idf.git
-- python -m pip install --user -r ~/esp/esp-idf/requirements.txt
-- export IDF_PATH=~/esp/esp-idf
+#- git clone --recursive --branch release/v3.2 https://github.com/espressif/esp-idf.git
+- python -m pip install --user -r $PROJECT_PATH/../esp-idf/requirements.txt
+- export IDF_PATH=$PROJECT_PATH/../esp-idf
 script:
 - cd $PROJECT_PATH
 - make defconfig
