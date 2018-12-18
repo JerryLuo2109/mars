@@ -9,6 +9,7 @@ addons:
     - python
     - python-serial
     - p7zip-full
+    - git
 before_install:
 - PROJECT_PATH=$(pwd)/project-mars
 install:
@@ -24,6 +25,8 @@ script:
 - cd $PROJECT_PATH
 - make defconfig
 - make -j4
+- export LAST_GIT_TAG_VER=&(git tag -l | tail -n2 | head -n1)
+- echo "Last GIT TAG version: $LAST_GIT_TAG_VER"
 before_deploy:
 - export LAST_GIT_TAG_VER=&(git tag -l | tail -n2 | head -n1)
 - echo "Last GIT TAG version: $LAST_GIT_TAG_VER"
