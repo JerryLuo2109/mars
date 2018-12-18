@@ -7,6 +7,13 @@ This is project Mars
 
 ## Release History
 
+### v1.6
+- Hello Release Success
+- Modify LED indication
+- Change timer to 2s
+- Optimize wdt enable to disable kill
+- BOOM!
+
 ### v1.3
 - DDDD
 - JJJJFFF
