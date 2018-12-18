@@ -27,7 +27,6 @@ script:
 - make -j4
 before_deploy:
 - export LAST_GIT_TAG_VER=$(git tag -l | tail -n2 | head -n1)
-#- export RELEASE_NOTE_BODY=$(cat ../README.md | sed -n '/'$TRAVIS_TAG'/,/'$LAST_GIT_TAG_VER'/{/'$LAST_GIT_TAG_VER'/b;p}' | sed -n '2,$p' | tr '\n' ' ' | sed 's/ //g')
 - export RELEASE_NOTE_BODY=$(cat ../README.md | sed -n '/'$TRAVIS_TAG'/,/'$LAST_GIT_TAG_VER'/{/'$LAST_GIT_TAG_VER'/b;p}' | sed -n '2,$p' | tr '\n' ' ')
 #- echo "Release note body: $RELEASE_NOTE_BODY"
 - 7z a -t7z ./build/Mars-firmware-bin-$TRAVIS_TAG.7z ./build/project-mars.bin ./build/partitions_singleapp.bin ./build/bootloader/bootloader.bin
