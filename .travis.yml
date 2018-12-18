@@ -25,6 +25,10 @@ script:
 - make defconfig
 - make -j4
 before_deploy:
+- export LAST_GIT_TAG_VER=&(git tag -l | tail -n2 | head -n1)
+- echo "Last GIT TAG version: $LAST_GIT_TAG_VER"
+- export RELEASE_NOTE_BODY=&(cat ../README.md | sed -n '/$TRAVIS_TAG/,/$LAST_GIT_TAG_VER/{/$LAST_GIT_TAG_VER/b;p}' | sed -n '2,$p')
+- echo "Release note body: $RELEASE_NOTE_BODY"
 - 7z a -t7z ./build/Mars-firmware-bin-$TRAVIS_TAG.7z ./build/project-mars.bin ./build/partitions_singleapp.bin ./build/bootloader/bootloader.bin
 - 7z a -t7z ./build/Mars-firmware-elf-$TRAVIS_TAG.7z ./build/project-mars.elf
 deploy:
@@ -37,6 +41,6 @@ deploy:
   target_commitish: $TRAVIS_COMMIT
   tag_name: $TRAVIS_TAG
   name: Mars insecurity firmware release $TRAVIS_TAG
-  body: "## Firmware Release Note"
+  body: "## Firmware Release Note \n ${RELEASE_NOTE_BODY}" 
   on:
     tags: true
