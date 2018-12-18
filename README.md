@@ -7,6 +7,12 @@ This is project Mars
 
 ## Release History
 
+### v1.3
+- DDDD
+- JJJJFFF
+- CCCC
+- AAAA
+
 ### v1.2
 - DDDD
 - JJJJFFF
