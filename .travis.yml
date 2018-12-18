@@ -25,13 +25,10 @@ script:
 - cd $PROJECT_PATH
 - make defconfig
 - make -j4
-- export LAST_GIT_TAG_VER=&(git tag -l | tail -n2 | head -n1)
-- echo "Last GIT TAG version: $LAST_GIT_TAG_VER"
 before_deploy:
 - export LAST_GIT_TAG_VER=&(git tag -l | tail -n2 | head -n1)
-- echo "Last GIT TAG version: $LAST_GIT_TAG_VER"
 - export RELEASE_NOTE_BODY=&(cat ../README.md | sed -n '/$TRAVIS_TAG/,/$LAST_GIT_TAG_VER/{/$LAST_GIT_TAG_VER/b;p}' | sed -n '2,$p')
-- echo "Release note body: $RELEASE_NOTE_BODY"
+#- echo "Release note body: $RELEASE_NOTE_BODY"
 - 7z a -t7z ./build/Mars-firmware-bin-$TRAVIS_TAG.7z ./build/project-mars.bin ./build/partitions_singleapp.bin ./build/bootloader/bootloader.bin
 - 7z a -t7z ./build/Mars-firmware-elf-$TRAVIS_TAG.7z ./build/project-mars.elf
 deploy:
