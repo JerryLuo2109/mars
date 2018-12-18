@@ -41,6 +41,6 @@ deploy:
   target_commitish: $TRAVIS_COMMIT
   tag_name: $TRAVIS_TAG
   name: Mars insecurity firmware release $TRAVIS_TAG
-  body: "## Firmware Release Note\n${RELEASE_NOTE_BODY}" 
+  body: ## Firmware Release Note\n${RELEASE_NOTE_BODY} 
   on:
     tags: true
