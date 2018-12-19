@@ -7,6 +7,9 @@ This is project Mars
 
 ## Release History
 
+### v1.7
+- Add email
+
 ### v1.6
 - Hello Release Success
 - Modify LED indication
