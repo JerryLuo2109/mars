@@ -44,3 +44,9 @@ deploy:
   body: "## Firmware Release Note ${RELEASE_NOTE_BODY}"
   on:
     tags: true
+  notifications:
+    email:
+      recipients:
+        - luokun237234@163.com
+      on_success: always # default: change
+      on_failure: always # default: always
